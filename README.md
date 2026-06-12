@@ -57,4 +57,4 @@ Through this project, I aim to:
 
 ## Author
 
-Heeba Patel — CSE student, having fun learning!
+CSE student, having fun learning!

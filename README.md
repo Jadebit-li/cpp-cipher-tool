@@ -46,15 +46,6 @@ Through this project, I aim to:
 * Explore basic cryptanalysis techniques such as brute-force attacks
 * Build a foundation for studying modern cryptographic systems
 
-## Future Improvements
-
-* Add Playfair Cipher support
-* Add Rail Fence Cipher support
-* Implement frequency analysis tools
-* Create a menu-driven interface
-* Add unit tests
-* Improve file handling capabilities
-
 ## Author
 
 CSE student, having fun learning!

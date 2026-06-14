@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cctype>
+#include <fstream>
 using namespace std;
 
 class Cipher{
@@ -117,36 +118,66 @@ public:
 };
 
 int main() {
-    CaesarCipher myCipher(3);
+    // CaesarCipher myCipher(3);
 
-    string coriginal = "abc xyz";
+    // string coriginal = "abc xyz";
     
-    string cencrypted = myCipher.encrypt(coriginal);
-    string cdecrypted = myCipher.decrypt(cencrypted);
+    // string cencrypted = myCipher.encrypt(coriginal);
+    // string cdecrypted = myCipher.decrypt(cencrypted);
 
-    cout << "Original:  " << coriginal << endl;
-    cout << "Encrypted: " << cencrypted << endl;
-    cout << "Decrypted: " << cdecrypted << endl;
+    // cout << "Original:  " << coriginal << endl;
+    // cout << "Encrypted: " << cencrypted << endl;
+    // cout << "Decrypted: " << cdecrypted << endl;
 
-    string interceptedMessage = "R Uxen Bcajfknaarnb!!"; 
+    // string interceptedMessage = "R Uxen Bcajfknaarnb!!"; 
     
-    cout << "\n[ INTERCEPTED MESSAGE ]" << endl;
-    cout << "Ciphertext: " << interceptedMessage << endl;
+    // cout << "\n[ INTERCEPTED MESSAGE ]" << endl;
+    // cout << "Ciphertext: " << interceptedMessage << endl;
 
-    myCipher.bruteForce(interceptedMessage);
+    // myCipher.bruteForce(interceptedMessage);
 
-    cout << "=== Vigenere Cipher Tool ===" << endl;
+    // cout << "=== Vigenere Cipher Tool ===" << endl;
 
     VigenereCipher myVigenere("Eren");
-    string voriginal = "Attack on Titan!";
+    // string voriginal = "Attack on Titan!";
     
-    string vencrypted = myVigenere.encrypt(voriginal);
-    string vdecrypted = myVigenere.decrypt(vencrypted);
+    // string vencrypted = myVigenere.encrypt(voriginal);
+    // string vdecrypted = myVigenere.decrypt(vencrypted);
 
-    cout << "Keyword:   Eren" << endl;
-    cout << "Original:  " << voriginal << endl;
-    cout << "Encrypted: " << vencrypted << endl;
-    cout << "Decrypted: " << vdecrypted << endl;
+    // cout << "Keyword:   Eren" << endl;
+    // cout << "Original:  " << voriginal << endl;
+    // cout << "Encrypted: " << vencrypted << endl;
+    // cout << "Decrypted: " << vdecrypted << endl;
+
+    ifstream fin("message.txt");
+
+    if (!fin.is_open()) {
+        cout << "Error: Could not open message.txt" << endl;
+        return 1;
+    }
+
+    string text;
+    string line;
+    while(getline(fin, line)){
+        text += line + '\n';
+    }
+    fin.close();
+
+    string encryptedText = myVigenere.encrypt(text);
+
+    ofstream fout("encrypted.txt");
+
+    if (!fout.is_open()) {
+        cout << "Error: Could not create encrypted.txt" << endl;
+        return 1;
+    }
+
+    fout << encryptedText;
+
+    fout.close();
+
+    cout << "Encryption complete!" << endl;
+    cout << "Encrypted text saved to encrypted.txt" << endl;
 
     return 0;
 }

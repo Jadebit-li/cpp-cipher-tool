@@ -117,119 +117,120 @@ public:
 
 };
 
-void encryptCaesar(CaesarCipher& cipher){
-    ifstream fin("message.txt");
+string readFile(string filename){
+
+    ifstream fin(filename);
+
     if(!fin.is_open()){
-        cout << "Error: unable to open message.txt";
-        return;
+        cout << "Error opening " << filename << endl;
+        return "";
     }
-    string line, text;
+
+    string text;
+    string line;
+
     while(getline(fin, line)){
         text += line + '\n';
     }
+
     fin.close();
-    string encrypted = cipher.encrypt(text);
 
-    ofstream fout("caesar_encrypted.txt");
-    fout << encrypted;
-    fout.close();
-
-    cout << "Encrypted Successfully!!" << endl;
+    return text;
 }
 
-void encryptVigenere(VigenereCipher& cipher){
-    ifstream fin("message.txt");
-    if(!fin.is_open()){
-        cout << "Error: unable to open message.txt";
+void writeFile(string filename, string content){
+
+    ofstream fout(filename);
+
+    if(!fout.is_open()){
+        cout << "Error creating " << filename << endl;
         return;
     }
-    string line, text;
-    while(getline(fin, line)){
-        text += line + '\n';
-    }
-    fin.close();
+
+    fout << content;
+
+    fout.close();
+}
+
+void encryptCaesar(CaesarCipher& cipher){
+
+    string text = readFile("message.txt");
+
+    if(text.empty()) return;
+
     string encrypted = cipher.encrypt(text);
 
-    ofstream fout("vigenere_encrypted.txt");
-    fout << encrypted;
-    fout.close();
+    writeFile("caesar_encrypted.txt", encrypted);
 
-    cout << "Encrypted Successfully!!" << endl;
+    cout << "\n✓ Encrypted Successfully!" << endl;
+    cout << "Saved to caesar_encrypted.txt\n";
 }
 
 void decryptCaesar(CaesarCipher& cipher){
-    ifstream fin("caesar_encrypted.txt");
-    if(!fin.is_open()){
-        cout << "Error: unable to open caesar_encrypted.txt";
-        return;
-    }
-    string line, text;
-    while(getline(fin, line)){
-        text += line + '\n';
-    }
-    fin.close();
+
+    string text = readFile("caesar_encrypted.txt");
+
+    if(text.empty()) return;
+
     string decrypted = cipher.decrypt(text);
 
-    ofstream fout("caesar_decrypted.txt");
-    fout << decrypted;
-    fout.close();
+    writeFile("caesar_decrypted.txt", decrypted);
 
-    cout << "Decrypted Successfully!!" << endl;
+    cout << "\n✓ Decrypted Successfully!" << endl;
+    cout << "Saved to caesar_decrypted.txt\n";
+}
+
+void encryptVigenere(VigenereCipher& cipher){
+
+    string text = readFile("message.txt");
+
+    if(text.empty()) return;
+
+    string encrypted = cipher.encrypt(text);
+
+    writeFile("vigenere_encrypted.txt", encrypted);
+
+    cout << "\n✓ Encrypted Successfully!" << endl;
+    cout << "Saved to vigenere_encrypted.txt\n";
 }
 
 void decryptVigenere(VigenereCipher& cipher){
-    ifstream fin("vigenere_encrypted.txt");
-    if(!fin.is_open()){
-        cout << "Error: unable to open vigenere_encrypted.txt";
-        return;
-    }
-    string line, text;
-    while(getline(fin, line)){
-        text += line + '\n';
-    }
-    fin.close();
+
+    string text = readFile("vigenere_encrypted.txt");
+
+    if(text.empty()) return;
+
     string decrypted = cipher.decrypt(text);
 
-    ofstream fout("vigenere_decrypted.txt");
-    fout << decrypted;
-    fout.close();
+    writeFile("vigenere_decrypted.txt", decrypted);
 
-    cout << "Decrypted Successfully!!" << endl;
+    cout << "\n✓ Decrypted Successfully!" << endl;
+    cout << "Saved to vigenere_decrypted.txt\n";
 }
 
 void bruteForceCaesar(){
 
-    ifstream fin("caesar_encrypted.txt");
+    string text = readFile("caesar_encrypted.txt");
 
-    if(!fin.is_open()){
-        cout << "Error opening caesar_encrypted.txt\n";
-        return;
-    }
-
-    string text, line;
-
-    while(getline(fin,line)){
-        text += line + '\n';
-    }
-
-    fin.close();
+    if(text.empty()) return;
 
     CaesarCipher temp(0);
 
-    cout << "\nPossible decryptions:\n\n";
+    cout << "\nPossible Decryptions:\n\n";
 
     temp.bruteForce(text);
 }
 
 void displayMenu() {
+
     cout << "\n=================================\n";
     cout << "      JADEBIT CIPHER TOOL\n";
     cout << "=================================\n\n";
 
     cout << "1. Encrypt File using Caesar\n";
     cout << "2. Decrypt Caesar File\n";
-    cout << "3. Encrypt File using Vigenère\n";
-    cout << "4. Decrypt Vigenère File\n";
+    cout << "3. Encrypt File using Vigenere\n";
+    cout << "4. Decrypt Vigenere File\n";
     cout << "5. Caesar Brute Force\n";
     cout << "6. Exit\n\n";
 
@@ -238,8 +239,15 @@ void displayMenu() {
 
 int main() {
 
-    VigenereCipher myVigenere("Eren");
-    CaesarCipher myCaesar(3);
+    int shift;
+    cout << "Enter Caesar shift : ";
+    cin >> shift;
+
+    cout << "Enter Keyword for Vigenere : ";
+    string keyword;
+    cin >> keyword;
+    VigenereCipher myVigenere(keyword);
+    CaesarCipher myCaesar(shift);
 
     int choice;
 
@@ -270,7 +278,7 @@ int main() {
                 break;
 
             case 6:
-                cout << "\nGoodbye!\n";
+                cout << "\nByeee!!!\n";
                 break;
 
             default:

@@ -2,28 +2,48 @@
 
 A command-line cryptography toolkit built in C++ that implements classical encryption algorithms using OOP principles.
 
-This project is part of my cybersecurity learning journey and focuses on understanding how historical ciphers work under the hood.
+This project is part of my cybersecurity learning journey and focuses on understanding how historical ciphers work methods work and how encrypted messages can be analyzed and attacked.
 
 ## Features
 
-Work in progress — building this incrementally as I learn. Check commit history to see progress.
-
 ### Caesar Cipher
 
-* Encrypt plaintext using a configurable shift value
+* Encrypt text using a custom shift value
 * Decrypt ciphertext using a known shift
 * Brute-force attack mode to recover messages without the key
 
 ### Vigenère Cipher
 
-* Encrypt messages using a keyword-based substitution cipher
+* Encrypt messages using a user defined keyword
 * Decrypt messages using the original keyword
 
-### Additional Functionality
+### File Operations
 
-* File input/output support *(planned)*
-* Modular OOP design for easy extension
-* Clean command-line interface
+* Read plaintext from files
+* Save encrypted output to files
+* Save decrypted output to files
+
+### Interactive Menu System
+
+* Encrypt files using Caesar Cipher 
+* Decrypt Caesar-encrypted files
+* Encrypt files using Vigenère Cipher
+* Decrypt Vigenère-encrypted files
+* Perform Caesar brute-force attacks
+
+=================================
+      JADEBIT CIPHER TOOL
+=================================
+
+1. Encrypt File using Caesar
+2. Decrypt Caesar File
+3. Encrypt File using Vigenere
+4. Decrypt Vigenere File
+5. Caesar Brute Force
+6. Exit
+
+Enter your choice: 
+
 
 ## Project Structure
 
